@@ -1,0 +1,51 @@
+name: React Native CI
+
+# Trigger the workflow on push or pull request to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest  # Use macOS runner for building iOS
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Checkout the repository code
+
+      # Set up Node.js and Yarn
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Specify Node.js version
+
+      # Install project dependencies
+      - name: Install dependencies
+        run: |
+          yarn install
+
+      # Set up Xcode for iOS build
+      - name: Set up Xcode
+        run: sudo xcode-select --switch /Applications/Xcode_13.4.1.app/Contents/Developer
+
+      # Install CocoaPods for iOS
+      - name: Install CocoaPods
+        run: cd ios && pod install
+
+      # Build Android Release
+      - name: Build Android Release
+        run: cd android && ./gradlew assembleRelease
+
+      # Build iOS Release
+      - name: Build iOS Release
+        run: |
+          cd ios
+          xcodebuild -scheme YourApp -workspace YourApp.xcworkspace -sdk iphoneos
+
+      # Optional: Run Tests
+      - name: Run Tests
+        run: yarn test
