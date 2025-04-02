@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import {StatusBar, StyleSheet, useColorScheme, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, useColorScheme, View} from 'react-native';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,6 +16,7 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <Text>aaa</Text>
     </View>
   );
 }
