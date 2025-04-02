@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Text>aaa</Text>
+      <Text>aaasssbbb</Text>
     </View>
   );
 }
